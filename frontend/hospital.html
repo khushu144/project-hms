@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals - Healthcare Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <!-- Animation library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/hospital.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/footer.css">
+    
+    <style>
+        /* Enhanced styling for improved UI */
+        
+        .parallax-1 {
+            background-image: url('img/bg/hospital-hero.jpg');
+            height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .parallax-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 80%;
+        }
+        
+        .parallax-inner h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .parallax-inner p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+        
+        .search-bar {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hospital-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .hospital-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hospital-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            color: #1e88e5;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        .nav-button {
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-button:hover {
+            background-color: #1565c0;
+            transform: scale(1.05);
+        }
+        
+        .animated-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .animated-btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .animated-btn:hover:after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .badge-rating {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #2196f3;
+            color: white;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .badge-availability {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #4caf50;
+            color: white;
+            display: inline-block;
+        }
+        
+        .facility-icon {
+            margin-right: 5px;
+            font-size: 16px;
+            color: #1e88e5;
+        }
+        
+        .section-heading {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-heading:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #1e88e5;
+        }
+        
+        /* Loading animation */
+        .loader {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loader .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: #1e88e5;
+        }
+        
+        /* Pagination styling */
+        .pagination {
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .page-link {
+            color: #1e88e5;
+            border-radius: 50%;
+            margin: 0 5px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 24px;
+        }
+        
+        .page-item.active .page-link {
+            background-color: #1e88e5;
+            border-color: #1e88e5;
+        }
+        
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Featured hospitals section */
+        .featured-hospitals {
+            padding: 40px 0;
+        }
+        
+        .featured-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff9800;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            margin-top: auto;
+        }
+        
+        /* Tooltip styling */
+        .tooltip-inner {
+            background-color: #1e88e5;
+            padding: 8px 15px;
+        }
+
+        /* Error message styling */
+        .error-container {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff3f3;
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .error-container i {
+            font-size: 3rem;
+            color: #f44336;
+            margin-bottom: 15px;
+        }
+        
+        .error-title {
+            font-size: 1.5rem;
+            color: #f44336;
+            margin-bottom: 10px;
+        }
+        
+        .error-message {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        /* Doctor card styles in modal */
+        .doctor-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            background: white;
+            transition: transform 0.3s;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .doctor-img {
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 15px auto;
+            border: 3px solid #1e88e5;
+            display: block;
+        }
+        
+        .doctor-info {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .doctor-name {
+            font-weight: 600;
+            color: #1e88e5;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-specialty {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .book-btn {
+            width: 100%;
+            background-color: #1e88e5;
+            border: none;
+            color: white;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .book-btn:hover {
+            background-color: #1565c0;
+        }
+        
+        /* Loading spinner for doctors */
+        .doctor-loader {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .doctor-loader .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: #1e88e5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand animate__animated animate__fadeIn" href="index.html">
+                <img src="img/logo/hms.png" width="160" height="50" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="hospital.html">Hospitals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctor.html">Doctors & Specialities</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="department.html">Departments & Services</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <!-- <li id="registerOption" class="nav-item"><a class="nav-link" href="register.html">Registration</a></li> -->
+                    
+                <li id="profileNav" class="nav-item" style="display: none;">
+                    <div id="profileContainer">
+                        <div id="profileLogo" class="profile-logo"></div>
+                        <span id="profileInitial" style="display: none;">U</span>
+                        <span id="dropdownArrow">▼</span>
+                    </div>
+                    <div id="profileDropdown" class="dropdown1">
+                        <a href="profile.html">Edit Profile</a>
+                        <a href="#">Help & Support</a>
+                        <a href="#" id="logout">Logout</a>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Parallax Effect -->
+    <section class="parallax-1">
+        <div class="parallax-inner">
+            <h1 class="animate__animated animate__fadeInDown">Find the Perfect Hospital</h1>
+            <p class="animate__animated animate__fadeInUp">Discover top-rated healthcare facilities near you</p>
+            <div class="search-bar animate__animated animate__fadeIn animate__delay-1s">
+                <div class="row g-2">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search hospitals by name...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary w-100" id="searchBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <h2 class="section-heading animate__animated animate__fadeIn">Find the Best Hospitals</h2>
+        
+        <!-- Loading Indicator -->
+        <div class="loader" id="loader">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Finding the best hospitals for you...</p>
+        </div>
+        
+        <!-- Error Message -->
+        <div class="error-container" id="errorContainer">
+            <i class="fas fa-exclamation-circle"></i>
+            <h4 class="error-title">Oops! Something went wrong</h4>
+            <p class="error-message" id="errorMessage">Unable to fetch hospital data. Please try again later.</p>
+            <button class="btn btn-outline-danger" id="retryBtn">
+                <i class="fas fa-sync-alt"></i> Retry
+            </button>
+        </div>
+        
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+            <h4>No hospitals found</h4>
+            <p>Try adjusting your search criteria</p>
+            <button class="btn btn-outline-primary mt-2" id="resetSearch">Reset Search</button>
+        </div>
+        
+        <!-- Hospital List - Grid View -->
+        <div class="row" id="hospitalList">
+            <!-- Hospital cards will be dynamically generated here -->
+        </div>
+        
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- Pagination will be dynamically generated here -->
+            </ul>
+        </nav>
+    </div>
+    <!-- Add these new modals after the existing doctorsModal -->
+
+<!-- Available Slots Modal -->
+<div class="modal fade" id="slotsModal" tabindex="-1" aria-labelledby="slotsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="slotsModalLabel">Available Slots</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Slots loading spinner -->
+                <div class="slot-loader" id="slotLoader">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading slots...</span>
+                    </div>
+                    <p class="mt-2">Finding available slots...</p>
+                </div>
+                
+                <!-- Error message for slots -->
+                <div class="alert alert-danger" id="slotError" style="display: none;">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span id="slotErrorMessage">Unable to fetch available slots.</span>
+                </div>
+                
+                <!-- No slots message -->
+                <div class="alert alert-info" id="noSlots" style="display: none;">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No slots are currently available for this doctor.
+                </div>
+                
+                <!-- Slots list -->
+                <div id="slotsList">
+                    <!-- Slots will be dynamically generated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Patient Form Modal -->
+<div class="modal fade" id="patientFormModal" tabindex="-1" aria-labelledby="patientFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="patientFormModalLabel">Patient Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <div class="mb-3">
+                        <label for="patientName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="patientName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="contactNumber" pattern="[0-9]{10}" required>
+                        <small class="text-muted">Enter a 10-digit phone number</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="diagnosis" class="form-label">Reason for Visit</label>
+                        <textarea class="form-control" id="diagnosis" rows="3" required></textarea>
+                    </div>
+                    <!-- Hidden fields for IDs -->
+                    <input type="hidden" id="formDoctorId">
+                    <input type="hidden" id="formHospitalId">
+                    <input type="hidden" id="formSlotId">
+                    <input type="hidden" id="formSlotDate">
+                    <input type="hidden" id="formSlotTime">
+                </form>
+                <!-- Success message -->
+                <div class="alert alert-success mt-3" id="bookingSuccess" style="display: none;">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span id="bookingSuccessMessage">Appointment booked successfully!</span>
+                </div>
+                <!-- Error message -->
+                <div class="alert alert-danger mt-3" id="bookingError" style="display: none;">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span id="bookingErrorMessage">Unable to book appointment.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitPatientForm">Book Appointment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add these styles to the existing <style> section -->
+<style>
+    /* Slots styling */
+    .date-card {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .date-header {
+        font-weight: 600;
+        color: #1e88e5;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .slot-item {
+        background-color: #e3f2fd;
+        border: 1px solid #1e88e5;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .slot-item:hover {
+        background-color: #1e88e5;
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    .slot-item.selected {
+        background-color: #1e88e5;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .slot-time {
+        font-weight: 600;
+    }
+    
+    /* Patient form styles */
+    #patientForm label {
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .slot-loader {
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .slot-loader .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        color: #1e88e5;
+    }
+</style>
+    <!-- Doctors Modal -->
+    <div class="modal fade" id="doctorsModal" tabindex="-1" aria-labelledby="doctorsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="doctorsModalLabel">Available Doctors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Doctor loading spinner -->
+                    <div class="doctor-loader" id="doctorLoader">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading doctors...</span>
+                        </div>
+                        <p class="mt-2">Finding available doctors...</p>
+                    </div>
+                    
+                    <!-- Error message for doctors -->
+                    <div class="alert alert-danger" id="doctorError" style="display: none;">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <span id="doctorErrorMessage">Unable to fetch doctor data.</span>
+                    </div>
+                    
+                    <!-- No doctors message -->
+                    <div class="alert alert-info" id="noDoctors" style="display: none;">
+                        <i class="fas fa-info-circle me-2"></i>
+                        No doctors are currently available at this hospital.
+                    </div>
+                    
+                    <!-- Doctors list -->
+                    <div class="row" id="doctorsList">
+                        <!-- Doctor cards will be dynamically generated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+    
+    <!-- Call to Action Section -->
+    <section class="py-5 bg-primary text-white text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="mb-4">Need help finding the right hospital?</h2>
+                    <p class="lead mb-4">Our healthcare specialists are ready to assist you 24/7</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-phone-alt me-2"></i> Call Us
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-comments me-2"></i> Live Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-heading">Latest Health Tips</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="img/bg/health-tip1.jpg" class="card-img-top" alt="Health Tip 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Staying Hydrated: Why It Matters</h5>
+                            <p class="card-text">Learn about the importance of proper hydration for overall health and wellbeing.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="img/bg/health-tip2.jpg" class="card-img-top" alt="Health Tip 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Heart Health: Simple Daily Habits</h5>
+                            <p class="card-text">Discover easy ways to maintain heart health through simple lifestyle changes.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="img/bg/health-tip3.jpg" class="card-img-top" alt="Health Tip 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Mental Wellness: Stress Management</h5>
+                            <p class="card-text">Effective techniques to manage stress and improve mental wellbeing.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--=== Footer ===-->
+    <div class="footer-v1">
+        <div class="footer">
+            <div class="container1">
+                <div class="row">
+                    <!-- About -->
+                    <div class="col-md-4">
+                        <h5>About Us</h5>
+                        <p>We are committed to providing high-quality healthcare services with a patient-centric approach.</p>
+                    </div>
+                    <!-- Useful Links -->
+                    <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html">About Us</a></li>
+                       
+                    </ul>
+                </div>
+                    <!-- Contact -->
+                    <div class="col-md-4">
+                        <h5>Contact Us</h5>
+                        <p>Phone: +1-800-123-4567</p>
+                        <p>Email: info@hospital.com</p>
+                        <p>Address: Surat City, Gujarat, India</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <p>&copy; 2025 Hospital Management System. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+        
+       
+        </div>
+        <!-- End Copyright -->
+    </div>
+    <!--=== End Footer ===-->
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top btn btn-primary rounded-circle" role="button">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap Bundle and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/header.js"></script>
+    <script>
+        $(document).ready(function () {
+    const HOSPITAL_API_URL = "http://localhost:3100/api/get-all-hospital";
+    const DOCTORS_API_URL = "http://localhost:3100/api/get-all-doctors-byhospital";
+    const SLOTS_API_URL = "http://localhost:3100/api/get-all-slots";
+    const BOOKING_API_URL = "http://localhost:3100/api/patients/add";
+    
+    let allHospitals = [];
+    let filteredHospitals = [];
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    
+    // Initialize modals
+    const doctorsModal = new bootstrap.Modal(document.getElementById('doctorsModal'));
+    const slotsModal = new bootstrap.Modal(document.getElementById('slotsModal'));
+    const patientFormModal = new bootstrap.Modal(document.getElementById('patientFormModal'));
+    
+    // Store selected information
+    let selectedHospitalId = '';
+    let selectedHospitalName = '';
+    let selectedDoctorId = '';
+    let selectedDoctorName = '';
+
+    // Fetch hospitals
+    fetchHospitals();
+
+    function fetchHospitals() {
+        showLoader();
+
+        $.ajax({
+            url: HOSPITAL_API_URL,
+            method: 'GET',
+            success: function (response) {
+                hideLoader();
+                allHospitals = response;
+                filteredHospitals = [...allHospitals];
+                displayHospitals(filteredHospitals);
+                initFeaturedHospitals(allHospitals);
+            },
+            error: function (err) {
+                hideLoader();
+                showError("Unable to fetch hospital data. Please try again later.");
+                console.error("Error:", err);
+            }
+        });
+    }
+
+    function displayHospitals(hospitals) {
+        const hospitalList = document.getElementById('hospitalList');
+        hospitalList.innerHTML = '';
+
+        if (hospitals.length === 0) {
+            document.getElementById('noResults').style.display = 'block';
+            document.getElementById('pagination').style.display = 'none';
+            return;
+        } else {
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('pagination').style.display = 'flex';
+        }
+
+        const totalPages = Math.ceil(hospitals.length / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedHospitals = hospitals.slice(startIndex, endIndex);
+
+        paginatedHospitals.forEach(hospital => {
+            const card = document.createElement('div');
+            card.className = 'col-md-4 mb-4';
+            card.innerHTML = `
+                <div class="card hospital-card">
+                    <img src="${hospital.imageUrl || 'img/default-hospital.jpg'}" class="card-img-top" alt="${hospital.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${hospital.name}</h5>
+                        <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i>${hospital.address}</p>
+                        <span class="badge-rating"><i class="fas fa-star text-warning"></i> 5.0</span>
+                        <div class="mt-auto pt-3">
+                            <button class="btn btn-primary w-100 book-btn" data-hospital-id="${hospital._id}" data-hospital-name="${hospital.name}">
+                                <i class="fas fa-calendar-check me-2"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            hospitalList.appendChild(card);
+        });
+        
+        // Add event listeners to book buttons
+        document.querySelectorAll('.book-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const hospitalId = this.getAttribute('data-hospital-id');
+                const hospitalName = this.getAttribute('data-hospital-name');
+                openDoctorsModal(hospitalId, hospitalName);
+            });
+        });
+        
+        renderPagination(totalPages);
+    }
+
+    function openDoctorsModal(hospitalId, hospitalName) {
+        // Store selected hospital info
+        selectedHospitalId = hospitalId;
+        selectedHospitalName = hospitalName;
+        
+        // Reset modal content
+        document.getElementById('doctorsModalLabel').textContent = `Available Doctors at ${hospitalName}`;
+        document.getElementById('doctorsList').innerHTML = '';
+        document.getElementById('doctorLoader').style.display = 'block';
+        document.getElementById('doctorError').style.display = 'none';
+        document.getElementById('noDoctors').style.display = 'none';
+        
+        // Show the modal
+        doctorsModal.show();
+        
+        // Fetch doctors for this hospital
+        $.ajax({
+            url: `${DOCTORS_API_URL}/${hospitalId}`,
+            method: 'GET',
+            success: function(response) {
+                document.getElementById('doctorLoader').style.display = 'none';
+                
+                // Handle the new response structure
+                if (!response.data || !response.data[0].doctors || response.data[0].doctors.length === 0) {
+                    document.getElementById('noDoctors').style.display = 'block';
+                    return;
+                }
+                
+                const doctorsList = document.getElementById('doctorsList');
+                const doctors = response.data[0].doctors;
+                
+                doctors.forEach(doctor => {
+                    const doctorCard = document.createElement('div');
+                    doctorCard.className = 'col-md-4 mb-3';
+                    doctorCard.innerHTML = `
+                        <div class="doctor-card">
+                            <img src="${doctor.doctorImage || 'img/default-doctor.jpg'}" class="doctor-img" alt="${doctor.doctorName}">
+                            <div class="doctor-info">
+                                <h5 class="doctor-name">${doctor.doctorName}</h5>
+                                <p class="doctor-specialty">${doctor.specialization}</p>
+                                <p class="doctor-experience"><i class="fas fa-briefcase me-1"></i> ${doctor.experience} years</p>
+                                <button class="btn book-btn" data-doctor-id="${doctor.doctorId}" data-doctor-name="${doctor.doctorName}" data-toggle="tooltip" title="Book appointment with Dr. ${doctor.doctorName}">
+                                    Book Appointment
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    doctorsList.appendChild(doctorCard);
+                });
+                
+                // Initialize tooltips
+                $('[data-toggle="tooltip"]').tooltip();
+                
+                // Add event listeners to book buttons
+                document.querySelectorAll('#doctorsList .book-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const doctorId = this.getAttribute('data-doctor-id');
+                        const doctorName = this.getAttribute('data-doctor-name');
+                        
+                        // Close the doctors modal
+                        doctorsModal.hide();
+                        
+                        // Open the slots modal
+                        openSlotsModal(doctorId, doctorName);
+                    });
+                });
+            },
+            error: function(err) {
+                document.getElementById('doctorLoader').style.display = 'none';
+                document.getElementById('doctorError').style.display = 'block';
+                document.getElementById('doctorErrorMessage').textContent = 'Unable to fetch doctor data. Please try again later.';
+                console.error("Error:", err);
+            }
+        });
+    }
+
+    // Function to open the slots modal and fetch available slots
+    function openSlotsModal(doctorId, doctorName) {
+        // Store selected doctor info
+        selectedDoctorId = doctorId;
+        selectedDoctorName = doctorName;
+        
+        // Reset modal content
+        document.getElementById('slotsModalLabel').textContent = `Available Slots for Dr. ${doctorName}`;
+        document.getElementById('slotsList').innerHTML = '';
+        document.getElementById('slotLoader').style.display = 'block';
+        document.getElementById('slotError').style.display = 'none';
+        document.getElementById('noSlots').style.display = 'none';
+        
+        // Show the modal
+        slotsModal.show();
+        
+        // Fetch available slots for this doctor
+        $.ajax({
+            url: `${SLOTS_API_URL}/${doctorId}`,
+            method: 'GET',
+            success: function(response) {
+                document.getElementById('slotLoader').style.display = 'none';
+                
+                // Check if slots exist
+                if (!response.slots || response.slots.length === 0) {
+                    document.getElementById('noSlots').style.display = 'block';
+                    return;
+                }
+                
+                const slotsList = document.getElementById('slotsList');
+                const slots = response.slots;
+                
+                // Group slots by date
+                const slotsByDate = {};
+                slots.forEach(slot => {
+                    if (!slotsByDate[slot.date]) {
+                        slotsByDate[slot.date] = [];
+                    }
+                    slotsByDate[slot.date].push(slot);
+                });
+                
+                // Display slots grouped by date
+                for (const [date, dateSlots] of Object.entries(slotsByDate)) {
+                    const dateCard = document.createElement('div');
+                    dateCard.className = 'date-card';
+                    
+                    // Format date for display (assuming date is in YYYY-MM-DD format)
+                    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    dateCard.innerHTML = `
+                        <h5 class="date-header">${formattedDate}</h5>
+                        <div class="slot-grid" data-date="${date}">
+                            <!-- Slots will be added here -->
+                        </div>
+                    `;
+                    
+                    slotsList.appendChild(dateCard);
+                    const slotGrid = dateCard.querySelector('.slot-grid');
+                    
+                    // Add all time slots for this date
+                    dateSlots.forEach(dateSlot => {
+                        // Extract all slots from the dateSlot
+                        dateSlot.slots.forEach(timeSlot => {
+                            const slotItem = document.createElement('div');
+                            slotItem.className = 'slot-item';
+                            slotItem.setAttribute('data-slot-id', dateSlot._id);
+                            slotItem.setAttribute('data-time-id', timeSlot._id);
+                            slotItem.setAttribute('data-date', date);
+                            slotItem.setAttribute('data-time', `${timeSlot.startTime} - ${timeSlot.endTime}`);
+                            
+                            slotItem.innerHTML = `
+                                <div class="slot-time">${timeSlot.startTime} - ${timeSlot.endTime}</div>
+                            `;
+                            
+                            slotGrid.appendChild(slotItem);
+                            
+                            // Add click event listener to select a slot
+                            slotItem.addEventListener('click', function() {
+                                // Remove selected class from all slots
+                                document.querySelectorAll('.slot-item').forEach(item => {
+                                    item.classList.remove('selected');
+                                });
+                                
+                                // Add selected class to this slot
+                                this.classList.add('selected');
+                                
+                                // Show patient form modal
+                                openPatientFormModal(
+                                    this.getAttribute('data-slot-id'), 
+                                    this.getAttribute('data-time-id'),
+                                    this.getAttribute('data-date'),
+                                    this.getAttribute('data-time')
+                                );
+                            });
+                        });
+                    });
+                }
+            },
+            error: function(err) {
+                document.getElementById('slotLoader').style.display = 'none';
+                document.getElementById('slotError').style.display = 'block';
+                document.getElementById('slotErrorMessage').textContent = 'Unable to fetch available slots. Please try again later.';
+                console.error("Error:", err);
+            }
+        });
+    }
+
+    // Function to open the patient form modal
+    function openPatientFormModal(slotId, timeSlotId, date, time) {
+        // Close the slots modal
+        slotsModal.hide();
+        
+        // Reset form and messages
+        document.getElementById('patientForm').reset();
+        document.getElementById('bookingSuccess').style.display = 'none';
+        document.getElementById('bookingError').style.display = 'none';
+        
+        // Set hidden form values
+        document.getElementById('formDoctorId').value = selectedDoctorId;
+        document.getElementById('formHospitalId').value = selectedHospitalId;
+        document.getElementById('formSlotId').value = timeSlotId;
+        document.getElementById('formSlotDate').value = date;
+        document.getElementById('formSlotTime').value = time;
+        
+        // Update modal title
+        document.getElementById('patientFormModalLabel').textContent = `Book Appointment with Dr. ${selectedDoctorName}`;
+        
+        // Show additional appointment details
+        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Show the modal
+        patientFormModal.show();
+    }
+
+    // Handle patient form submission
+    document.getElementById('submitPatientForm').addEventListener('click', function() {
+        const form = document.getElementById('patientForm');
+        
+        // Check form validity
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        // Get form data
+        const bookingData = {
+            name: document.getElementById('patientName').value,
+            contactNumber: document.getElementById('contactNumber').value,
+            diagnosis: document.getElementById('diagnosis').value,
+            doctorId: document.getElementById('formDoctorId').value,
+            hospitalId: document.getElementById('formHospitalId').value,
+            slotId: document.getElementById('formSlotId').value
+        };
+        
+        // Disable submit button and show loading
+        const submitBtn = document.getElementById('submitPatientForm');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Booking...';
+        
+        // Submit booking data
+        $.ajax({
+            url: BOOKING_API_URL,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(bookingData),
+            success: function(response) {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                
+                // Show success message
+                document.getElementById('bookingSuccess').style.display = 'block';
+                document.getElementById('bookingSuccessMessage').textContent = 'Appointment booked successfully!';
+                
+                // Hide form elements
+                form.style.display = 'none';
+                
+                // Add confirmation details to success message
+                const successMessageElement = document.getElementById('bookingSuccessMessage');
+                const formattedDate = new Date(document.getElementById('formSlotDate').value).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                successMessageElement.innerHTML = `
+                    Appointment booked successfully!<br><br>
+                    <strong>Doctor:</strong> Dr. ${selectedDoctorName}<br>
+                    <strong>Hospital:</strong> ${selectedHospitalName}<br>
+                    <strong>Date:</strong> ${formattedDate}<br>
+                    <strong>Time:</strong> ${document.getElementById('formSlotTime').value}<br><br>
+                    Please arrive 15 minutes before your scheduled appointment.
+                `;
+                
+                // Change the close button text
+                document.querySelector('.modal-footer .btn-secondary').textContent = 'Close';
+                
+                // Hide the submit button
+                document.getElementById('submitPatientForm').style.display = 'none';
+            },
+            error: function(err) {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                
+                // Show error message
+                document.getElementById('bookingError').style.display = 'block';
+                document.getElementById('bookingErrorMessage').textContent = 'Unable to book appointment. Please try again later.';
+                console.error("Error:", err);
+            }
+        });
+    });
+
+    function renderPagination(totalPages) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        
+        // Previous button
+        const prevLi = document.createElement('li');
+        prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>`;
+        pagination.appendChild(prevLi);
+        
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            pagination.appendChild(li);
+        }
+        
+        // Next button
+        const nextLi = document.createElement('li');
+        nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>`;
+        pagination.appendChild(nextLi);
+        
+        // Add event listeners
+        document.querySelectorAll('.page-link').forEach((link, index) => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (index === 0) {
+                    // Previous button
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayHospitals(filteredHospitals);
+                    }
+                } else if (index === totalPages + 1) {
+                    // Next button
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        displayHospitals(filteredHospitals);
+                    }
+                } else {
+                    // Page number
+                    currentPage = index;
+                    displayHospitals(filteredHospitals);
+                }
+                
+                // Scroll to top of hospital list
+                document.getElementById('hospitalList').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    }
+
+    function initFeaturedHospitals(hospitals) {
+        // Get top 5 hospitals with highest ratings (or just first 5 if ratings not available)
+        const featuredHospitals = hospitals.slice(0, 5);
+        const carousel = $('#featuredHospitals');
+        
+        featuredHospitals.forEach(hospital => {
+            const slide = `
+                <div class="item">
+                    <div class="card hospital-card">
+                        <span class="featured-badge"><i class="fas fa-award"></i> Featured</span>
+                        <img src="${hospital.imageUrl || 'img/default-hospital.jpg'}" class="card-img-top" alt="${hospital.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${hospital.name}</h5>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i>${hospital.address}</p>
+                            <span class="badge-rating"><i class="fas fa-star text-warning"></i> 5.0</span>
+                            <div class="mt-auto pt-3">
+                                <button class="btn btn-primary w-100 book-btn" data-hospital-id="${hospital._id}" data-hospital-name="${hospital.name}">
+                                    <i class="fas fa-calendar-check me-2"></i> Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            carousel.append(slide);
+        });
+        
+        // Initialize Owl Carousel
+        carousel.owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            navText: [
+                '<i class="fas fa-chevron-left"></i>',
+                '<i class="fas fa-chevron-right"></i>'
+            ],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 2
+                },
+                992: {
+                    items: 3
+                }
+            }
+        });
+        
+        // Add event listeners to book buttons in carousel
+        carousel.find('.book-btn').each(function() {
+            $(this).on('click', function() {
+                const hospitalId = $(this).data('hospital-id');
+                const hospitalName = $(this).data('hospital-name');
+                openDoctorsModal(hospitalId, hospitalName);
+            });
+        });
+    }
+
+    function showLoader() {
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('hospitalList').innerHTML = '';
+        document.getElementById('pagination').style.display = 'none';
+        document.getElementById('errorContainer').style.display = 'none';
+        document.getElementById('noResults').style.display = 'none';
+    }
+
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
+    }
+
+    function showError(message) {
+        document.getElementById('errorContainer').style.display = 'block';
+        document.getElementById('errorMessage').textContent = message;
+    }
+
+    // Search functionality
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        
+        if (searchTerm === '') {
+            filteredHospitals = [...allHospitals];
+        } else {
+            filteredHospitals = allHospitals.filter(hospital => 
+                hospital.name.toLowerCase().includes(searchTerm) || 
+                hospital.address.toLowerCase().includes(searchTerm)
+            );
+        }
+        
+        currentPage = 1;
+        displayHospitals(filteredHospitals);
+    });
+
+    // Search input enter key press
+    document.getElementById('searchInput').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('searchBtn').click();
+        }
+    });
+
+    // Reset search
+    document.getElementById('resetSearch').addEventListener('click', function() {
+        document.getElementById('searchInput').value = '';
+        filteredHospitals = [...allHospitals];
+        currentPage = 1;
+        displayHospitals(filteredHospitals);
+    });
+
+    // Retry button
+    document.getElementById('retryBtn').addEventListener('click', function() {
+        fetchHospitals();
+    });
+
+    // Redirect to booking page
+    function redirectToBooking() {
+        window.location.href = 'book.html';
+    }
+
+    // Back to top button
+    const backToTopButton = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Initialize tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    // Check user login status
+    
+// Check user login status
+function checkLoginStatus() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    
+    if (userData && userData.token) {
+        // User is logged in
+        document.getElementById('registerOption').style.display = 'none';
+        document.getElementById('profileNav').style.display = 'block';
+        
+        // Set profile initial
+        if (userData.name) {
+            document.getElementById('profileInitial').textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('profileInitial').style.display = 'block';
+        }
+    } else {
+        // User is not logged in
+        document.getElementById('registerOption').style.display = 'block';
+        document.getElementById('profileNav').style.display = 'none';
+    }
+}
+
+        });
+        </script>
